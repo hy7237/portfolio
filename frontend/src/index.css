@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #14172B;       /* near-black navy for headings */
+  --color-muted: #6B7280;     /* body text grey */
+  --color-surface: #F3F5F9;   /* soft blue-grey page background */
+  --color-card: #FFFFFF;
+  --color-accent: #FF2D6C;    /* hot pink from the reference */
+  --color-accentDark: #E01F58;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --max-width-content: 1200px;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
