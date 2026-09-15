@@ -1,4 +1,25 @@
+import { useState } from "react";
+import axios from "axios";
+
 function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+   
+  };
+
   return (
     <section id="contact" className="max-w-content mx-auto px-6 md:px-10 py-20">
       <p className="text-sm font-semibold tracking-wide text-accent mb-3">
@@ -11,7 +32,7 @@ function Contact() {
         Feel free to reach out to me!
       </p>
 
-      <form className="bg-card rounded-2xl shadow-sm p-8 max-w-xl space-y-5">
+      <form onSubmit={handleSubmit} className="bg-card rounded-2xl shadow-sm p-8 max-w-xl space-y-5">
         <div>
           <label htmlFor="name" className="block text-sm font-semibold text-ink mb-1.5">
             Name
@@ -21,6 +42,8 @@ function Contact() {
             id="name"
             name="name"
             placeholder="Your name"
+            value={formData.name}
+            onChange={handleChange}
             required
             className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
           />
@@ -35,6 +58,8 @@ function Contact() {
             id="email"
             name="email"
             placeholder="Your email"
+            value={formData.email}
+            onChange={handleChange}
             required
             className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
           />
@@ -48,6 +73,8 @@ function Contact() {
             id="message"
             name="message"
             placeholder="Your message"
+            value={formData.message}
+            onChange={handleChange}
             required
             rows={4}
             className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent resize-none"

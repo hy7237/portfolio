@@ -6,6 +6,7 @@ import Projects from "./pages/project"
 import Experience from "./pages/experience"
 import Contact from "./pages/contact"
 import Codingprofile from "./pages/codingprofile"
+import Footer from "./components/footer"
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Experience/>
       <Codingprofile/>
       <Contact/>
+      <Footer/>
     </div>
   );
 }
