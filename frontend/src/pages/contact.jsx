@@ -7,6 +7,8 @@ function Contact() {
     email: "",
     message: ""
   });
+  const [isSending, setIsSending] = useState(false);
+  const [feedback, setFeedback] = useState("");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -14,11 +16,28 @@ function Contact() {
       [name]: value
     }));
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-   
-  };
+    setIsSending(true);
+    setFeedback("");
+
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/contact`,
+        formData
+      );
+      setFeedback(data.message || "Your message was sent successfully.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      setFeedback(
+        error.response?.data?.errors?.[0]?.msg ||
+          error.response?.data?.message ||
+          "Unable to send your message. Please try again."
+      );
+    } finally {
+      setIsSending(false);
+    }
+  }
 
   return (
     <section id="contact" className="max-w-content mx-auto px-6 md:px-10 py-20">
@@ -83,10 +102,12 @@ function Contact() {
 
         <button
           type="submit"
+          disabled={isSending}
           className="bg-accent hover:bg-accentDark transition-colors text-white font-semibold px-7 py-3 rounded-full"
         >
-          Send Message
+          {isSending ? "Sending..." : "Send Message"}
         </button>
+        {feedback && <p role="status">{feedback}</p>}
       </form>
     </section>
   );
